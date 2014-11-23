@@ -1,12 +1,14 @@
 import click
 from click import echo
 from click import style
+import feedparser
 
 
 class Config(object):
 
     def __init__(self):
         self.verbose = False
+        self.rss = False
 
 
 pass_config = click.make_pass_decorator(Config, ensure=True)
@@ -28,6 +30,7 @@ def cli(config, verbose, rss, save_directory):
         save_directory = '.'
     config.verbose = verbose
     config.save_directory = save_directory
+    config.rss = rss
 
 
 @cli.command(name="podcasts")
@@ -58,6 +61,25 @@ def stories(config, sort_by, limit):
         echo("Running stories(sort_by=" + str(sort_by) +
              ", limit=" + str(limit) + ")")
         echo("Save directory is %s" % config.save_directory)
+    if (config.rss):
+        feeds = feedparser.parse('http://feeds.feedburner.com/kdnuggets-data-mining-analytics?format=xml')
+        if (config.verbose):
+            echo(feeds.feed.title)
+            echo(feeds.feed.link)
+            echo(feeds.feed.description)
+            try:
+                echo(feeds.feed.published)
+            except AttributeError:
+                echo('Feed RSS xml without \'published\' attribute')
+            try:
+                echo(feeds.feed.published_parsed)
+            except AttributeError:
+                echo('Feed RSS xml without \'published_parsed\' attribute')
+        echo('Entries in feedparser:' + str(len(feeds.entries)))
+        for x in range(0, limit):
+            echo('Item no. :' + str(x))
+            echo(feeds.entries[x].title)
+            echo(feeds.entries[x].summary)
     pass
 
 
