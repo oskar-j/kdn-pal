@@ -3,7 +3,7 @@ kdn-pal
 
 ### Description
 
-Kdnuggets pure console reader. Designed to run from console (hence the setup.py) and to dig out most interesting news (yet this feature currently under development). Uses RSS parser and / or HTML scrapping to display news from KDNuggets portal.
+Kdnuggets (http://www.kdnuggets.com/) pure console reader. Designed to run from console (hence the setup.py) and to dig out most interesting news (yet this feature currently under development). Uses RSS parser and / or HTML scrapping to display news from KDNuggets portal.
 
 #### To do list
 
@@ -14,7 +14,9 @@ Kdnuggets pure console reader. Designed to run from console (hence the setup.py)
 ### Licence
 
 The MIT License (MIT)
+
 Copyright (c) 2014 Oskar Jarczyk
+
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
 in the Software without restriction, including without limitation the rights
@@ -23,6 +25,7 @@ copies of the Software, and to permit persons to whom the Software is
 furnished to do so, subject to the following conditions:
 The above copyright notice and this permission notice shall be included in all
 copies or substantial portions of the Software.
+
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
