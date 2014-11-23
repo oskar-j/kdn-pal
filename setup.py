@@ -5,7 +5,7 @@ setup(
     version='0.1',
     py_modules=['kdn'],
     install_requires=[
-        'Click', 'feedparser'
+        'Click', 'feedparser', 'constants'
     ],
     entry_points='''
         [console_scripts]
