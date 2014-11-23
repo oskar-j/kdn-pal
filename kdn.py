@@ -2,6 +2,14 @@ import click
 from click import echo
 from click import style
 import feedparser
+import constants
+import engine as e
+
+
+try:
+    cn = constants.Constants(variable='KDN', filename='constants.ini')
+except KeyError:
+    cn = None
 
 
 class Config(object):
@@ -9,6 +17,7 @@ class Config(object):
     def __init__(self):
         self.verbose = False
         self.rss = False
+        self.engine = e.running
 
 
 pass_config = click.make_pass_decorator(Config, ensure=True)
@@ -16,25 +25,37 @@ pass_config = click.make_pass_decorator(Config, ensure=True)
 
 @click.group()
 @click.option('--rss/--no-rss', default=False)
+@click.option('--engine', default=e.import_io)
 @click.option('--verbose', is_flag=True)
 @click.option('--save-directory', type=click.Path())
 @pass_config
-def cli(config, verbose, rss, save_directory):
+def cli(config, rss, engine, verbose, save_directory):
     """ What's new on KDNuggets """
     """ Simple program that reads stories from KDNuggets in a command line """
+    #init_constants()
     if verbose:
         echo(" Verbose mode enabled")
     if not rss:
         echo(" Parsing pure HTML for content")
     if save_directory is None:
         save_directory = '.'
+    if engine == e.import_io:
+        e.running = 'import.io'
+    elif engine == 'bs':
+        e.running = 'bs4'
+    elif engine == 'lxml':
+        e.running = 'lxml'
+    else:
+        echo('Ununderstood engine name! Switching to beautifoul soup.')
+        e.running = 'bs4'
     config.verbose = verbose
     config.save_directory = save_directory
     config.rss = rss
 
 
 @cli.command(name="podcasts")
-def podcasts():
+@pass_config
+def podcasts(config):
     """ List podcasts """
     echo(" List podcasts")
     pass
@@ -84,17 +105,23 @@ def stories(config, sort_by, limit):
 
 
 @cli.command(name="jobs")
-def jobs():
+@pass_config
+def jobs(config):
     """ List jobs """
     echo(style(' Listing news on jobs as seen on KDNuggets...', fg='yellow'))
+    if (config.verbose):
+        echo("Running jobs with engine: " + str(e.running))
+        echo("Save directory is %s" % config.save_directory)
 
 
 @cli.command(name="academic")
-def academic():
+@pass_config
+def academic(config):
     """ List academic topics """
     echo(style(' KDNuggets academic', fg='yellow'))
 
 
 if __name__ == '__main__':
+    #init_constants()
     echo(" KDNuggets - command line tool for data hackers")
     cli()
