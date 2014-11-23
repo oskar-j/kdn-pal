@@ -3,7 +3,13 @@ kdn-pal
 
 ### Description
 
-Kdnuggets pure console reader. Uses RSS parser and / or HTML scrapping to displat news from KDNuggets portal.
+Kdnuggets pure console reader. Designed to run from console (hence the setup.py) and to dig out most interesting news (yet this feature currently under development). Uses RSS parser and / or HTML scrapping to display news from KDNuggets portal.
+
+#### To do list
+
+* publish on pypi
+* implement html scrapping
+* sort and shuffle articles intelligently
 
 ### Licence
 
