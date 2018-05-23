@@ -1,3 +1,5 @@
-click
+pytest
+pytest-cov
 feedparser
 constants
+click
